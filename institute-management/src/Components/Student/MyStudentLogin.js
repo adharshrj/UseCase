@@ -1,19 +1,60 @@
 import { render } from 'react-dom';
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, FormControl, Button, FormGroup,FormLabel } from "react-bootstrap";
 import "./MyStudentLogin.css";
 import MyStudentDashboard from './Student Dashboard/MyStudentDashboard';
 import { Redirect } from 'react-router';
+import AuthService from "./Services/auth.service";
+import CheckButton from "react-validation/build/button";
+export default function MyStudentLogin(props) {
+    
+    const form = useRef();
+    const checkBtn = useRef();
 
-export default function MyStudentLogin() {
-    const [studentname, setStudentName] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
 
+    const onChangeUsername = (e) => {
+        const username = e.target.value;
+        setUsername(username);
+    };
+    
+    const onChangePassword = (e) => {
+        const password = e.target.value;
+        setPassword(password);
+    };
     const validateFormFields = () => {
-        return studentname.length > 0 && password.length > 0;
+        return username.length > 0 && password.length > 0;
     }
     const handleSubmit = (event) => {
         event.preventDefault();
+        setMessage("");
+        setLoading(true);
+    
+        form.current.validateAll();
+        if (checkBtn.current.context._errors.length === 0) {
+            AuthService.login(username, password).then(
+              () => {
+                props.history.push("/profile");
+                window.location.reload();
+              },
+              (error) => {
+                const resMessage =
+                  (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+      
+                setLoading(false);
+                setMessage(resMessage);
+              }
+            );
+          } else {
+            setLoading(false);
+          }
     };
 
 
@@ -27,15 +68,15 @@ export default function MyStudentLogin() {
                     <FormControl
                         autoFocus
                         type="text"
-                        value={studentname}
-                        onChange={e => setStudentName(e.target.value)}
+                        value={username}
+                        onChange={onChangeUsername}
                     />
                 </FormGroup>
                 <FormGroup controlId="password" bsSize="large">
                     <FormLabel>Password: </FormLabel>
                     <FormControl
                         value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        onChange={onChangePassword}
                         type="password"
                     />
                 </FormGroup>
@@ -44,6 +85,7 @@ export default function MyStudentLogin() {
                 </Button>
             </Form>
             </div>
-    );
+        );
 }
+
 render(<MyStudentLogin />, document.getElementById('root'));
