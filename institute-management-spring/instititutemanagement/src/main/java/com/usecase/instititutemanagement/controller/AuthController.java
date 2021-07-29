@@ -25,9 +25,10 @@ import com.usecase.instititutemanagement.payload.request.*;
 import com.usecase.instititutemanagement.payload.response.*;
 import com.usecase.instititutemanagement.repo.*;
 import com.usecase.instititutemanagement.security.*;
-import com.usecase.instititutemanagement.sercurity.services.*;
+import com.usecase.instititutemanagement.security.jwt.*;
+import com.usecase.instititutemanagement.security.services.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3000)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -35,7 +36,7 @@ public class AuthController {
 	AuthenticationManager authenticationManager;
 
 	@Autowired
-	UserRepos userRepository;
+	UserRepo userRepository;
 
 	@Autowired
 	RoleRepo roleRepository;
@@ -72,16 +73,16 @@ public class AuthController {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
+					.body(new MsgResponse("Error: Username is already taken!"));
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: Email is already in use!"));
+					.body(new MsgResponse("Error: Email is already in use!"));
 		}
 
-		// Create new user's account
+		
 		User user = new User(signUpRequest.getUsername(), 
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()));
@@ -90,26 +91,26 @@ public class AuthController {
 		Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Role studentRole = roleRepository.findByName(ERole.ROLE_STUDENT)
+			Role studentRole = roleRepository.findByName(ARole.ROLE_STUDENT)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(studentRole);
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
 				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+					Role adminRole = roleRepository.findByName(ARole.ROLE_ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
 
 					break;
 				case "prof":
-					Role profRole = roleRepository.findByName(ERole.ROLE_PROF)
+					Role profRole = roleRepository.findByName(ARole.ROLE_PROF)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(profRole);
 
 					break;
 				default:
-					Role studentRole = roleRepository.findByName(ERole.ROLE_STUDENT)
+					Role studentRole = roleRepository.findByName(ARole.ROLE_STUDENT)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(studentRole);
 				}
@@ -119,6 +120,6 @@ public class AuthController {
 		user.setRoles(roles);
 		userRepository.save(user);
 
-		return ResponseEntity.ok(new MessageResponse("Registered successfully!"));
+		return ResponseEntity.ok(new MsgResponse("Registered successfully!"));
 	}
 }

@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+export default function AuthService() {
 const API_URL = "http://localhost:8080/api/auth/";
 
 const register = (username, email, password) => {
@@ -33,9 +35,4 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
-export default {
-  register,
-  login,
-  logout,
-  getCurrentUser,
-};
+}

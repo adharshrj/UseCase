@@ -1,6 +1,6 @@
 package com.usecase.instititutemanagement.model;
 
-public enum ERole {
+public enum ARole {
 	ROLE_STUDENT,
     ROLE_PROF,
     ROLE_ADMIN

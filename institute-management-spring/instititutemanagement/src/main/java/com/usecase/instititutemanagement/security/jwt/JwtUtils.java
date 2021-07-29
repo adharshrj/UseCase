@@ -14,22 +14,34 @@ import io.jsonwebtoken.*;
 public class JwtUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-	@Value("${institutemgmt.app.jwtSecret}")
 	private String jwtSecret;
+	private int jwtExpirationMs;
+	private int refreshExpirationDateInMs;
+
+	@Value("${institutemgmt.app.jwtSecret}")
+	public void setJwtsecret(String jwtSecret) {
+		this.jwtSecret = jwtSecret;
+	}
 
 	@Value("${institutemgmt.app.jwtExpirationMs}")
-	private int jwtExpirationMs;
+	public void setJwtExpirationMs(int jwtExpirationMs) {
+		this.jwtExpirationMs = jwtExpirationMs;
+	}
+	
+	
+	@Value("${institutemgmt.app.jwtrefreshExpirationDateInMs}")
+	public void setRefreshExpirationDateInMs(int refreshExpirationDateInMs) {
+		this.refreshExpirationDateInMs = refreshExpirationDateInMs;
+	}
 
 	public String generateJwtToken(Authentication authentication) {
 
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-		return Jwts.builder()
-				.setSubject((userPrincipal.getUsername()))
-				.setIssuedAt(new Date())
-				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-				.signWith(SignatureAlgorithm.HS512, jwtSecret)
-				.compact();
+		return Jwts.builder().setSubject((userPrincipal.getUsername()))
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
 
 	public String getUserNameFromJwtToken(String token) {
