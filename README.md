@@ -11,5 +11,5 @@ UseCase Repository
 6) Dashboard Sidebar for admin, orifessors and student has been completed.
 7) Bootstrap has been added to all pages.
 
-**Spring Boot**
-1)Spring Security added.
+**Spring Boot**<br>
+1) Spring Security added.
