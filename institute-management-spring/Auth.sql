@@ -1,0 +1,5 @@
+USE `im`;
+
+INSERT INTO roles(name) VALUES('ROLE_STUDENT');
+INSERT INTO roles(name) VALUES('ROLE_PROF');
+INSERT INTO roles(name) VALUES('ROLE_ADMIN');

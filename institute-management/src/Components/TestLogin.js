@@ -2,9 +2,14 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import AuthService from "./Services/auth.service";
+//import AuthService from "./Services/auth.service";
+import {login2,login,
+  logout,
+  register,
+  getCurrentUser} from "./Services/auth.service";
 import MyStudentDashboard from "./Student/Student Dashboard/MyStudentDashboard";
-
+import {BrowserRouter as Router, Route, Switch, useHistory,withRouter} from "react-router-dom";
+import School from "./School";
 const required = (value) => {
   if (!value) {
     return (
@@ -33,22 +38,24 @@ const TestLogin = (props) => {
     const password = e.target.value;
     setPassword(password);
   };
+  const history = useHistory();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     setMessage("");
     setLoading(true);
-
+    
     form.current.validateAll();
-
+   
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.login(username, password).then(
+      login(username, password).then(
         () => {
-          props.history.push({MyStudentDashboard});
+          history.push("/student");
           window.location.reload();
-        },
-        (error) => {
+          //console.log("=================");
+          //console.log(res);
+        }, (error) => {
           const resMessage =
             (error.response &&
               error.response.data &&
@@ -65,7 +72,9 @@ const TestLogin = (props) => {
     }
   };
 
+    
   return (
+    <Router>
     <div className="col-md-12">
       <div className="card card-container">
         <Form onSubmit={handleLogin} ref={form}>
@@ -113,7 +122,13 @@ const TestLogin = (props) => {
         </Form>
       </div>
     </div>
+    <Switch>
+              <Route exact path="/" component={School} />
+              <Route path="/student" component={MyStudentDashboard} />
+            </Switch>
+    </Router>
+  
   );
-};
+  }
+  export default TestLogin;
 
-export default TestLogin;

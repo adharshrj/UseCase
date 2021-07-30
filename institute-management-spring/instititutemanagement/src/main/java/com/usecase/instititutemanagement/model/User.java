@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
+import io.swagger.annotations.ApiModelProperty;
 @Entity
 @Table(	name = "users", 
 		uniqueConstraints = { 
@@ -20,11 +20,14 @@ public class User {
 
 	@NotBlank
 	@Size(max = 20)
+	
+	@ApiModelProperty(notes = "Name of the user",name="name",required =true,value="A valid username")
 	private String username;
 
 	@NotBlank
 	@Size(max = 50)
 	@Email
+	@ApiModelProperty(notes = "User e-mail",name="email",required =true,value="A valid email id")
 	private String email;
 
 	@NotBlank

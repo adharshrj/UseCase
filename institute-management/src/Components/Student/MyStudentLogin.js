@@ -46,4 +46,3 @@ export default function MyStudentLogin() {
       </div>
   );
 }
-render(<MyStudentLogin />, document.getElementById('root'));

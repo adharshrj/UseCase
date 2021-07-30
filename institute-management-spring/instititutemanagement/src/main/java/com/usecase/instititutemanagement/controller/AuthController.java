@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import com.usecase.instititutemanagement.model.*;
 import com.usecase.instititutemanagement.payload.request.*;
 import com.usecase.instititutemanagement.payload.response.*;
@@ -47,6 +52,14 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
+	
+    
+    @ApiOperation(value="Sign in Details", response = Iterable.class, tags = "authenticateUser")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "not authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -68,6 +81,12 @@ public class AuthController {
 												 roles));
 	}
 
+	@ApiOperation(value="Sign up Details", response = Iterable.class, tags = "registerUser")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "not authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {

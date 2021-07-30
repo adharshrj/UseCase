@@ -24,7 +24,7 @@ public class TestController {
 	@GetMapping("/prof")
 	@PreAuthorize("hasRole('PROF')")
 	public String profAccess() {
-		return "Professpr Dashboard.";
+		return "Professor Dashboard.";
 	}
 
 	@GetMapping("/admin")

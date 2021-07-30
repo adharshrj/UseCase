@@ -1,10 +1,12 @@
 package com.usecase.instititutemanagement.model;
 
-
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
+@Cacheable()
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
