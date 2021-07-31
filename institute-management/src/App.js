@@ -5,10 +5,12 @@ import MyProfDashboard from './Components/Prof/Prof Dashboard/MyProfDashboard';
 import MyStudentDashboard from './Components/Student/Student Dashboard/MyStudentDashboard';
 import TestLogin from './Components/TestLogin';
 import MyRegister from './Components/Register/MyRegister';
+import StudentList from './Components/Prof/Prof Dashboard/StudentList';
 function App() {
   return (
     <div className="App">
      <School/>
+     {/* <MyProfDashboard/> */}
     {/* <TestLogin/> */}
     
     </div>
