@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
 import com.usecase.instititutemanagement.error.*;
 import com.usecase.instititutemanagement.model.*;
 import com.usecase.instititutemanagement.repo.*;
@@ -36,6 +41,19 @@ public class ProfController extends BaseController{
 			return new ResponseEntity<Optional<Student>>(sservice.findone(studentId), HttpStatus.OK);
 		}catch(ErrorCust ec){
 			throw ec;
+		}
+	}
+
+	@PostMapping("/student/list/add")
+	public ResponseEntity<Prof> postStudent(@Valid @RequestBody Student student) throws ErrorCust {
+	
+		try {	
+		student.saveStudent(student);
+		student.getAllStudents().forEach(System.out::println);
+		return new ResponseEntity<Student>(student, HttpStatus.OK);
+	}
+	 	catch (ErrorCust ec ) {
+		throw ec;
 		}
 	}
 	

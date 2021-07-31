@@ -88,7 +88,7 @@ public class AdminController extends BaseController{
 	public ResponseEntity<Prof> postProf(@Valid @RequestBody Prof prof) throws ErrorCust {
 	
 		try {	
-		prof.add(prof);
+		prof.saveProf(prof);
 		prof.getAllProfs().forEach(System.out::println);
 		return new ResponseEntity<Prof>(prof, HttpStatus.OK);
 	}
@@ -101,7 +101,7 @@ public class AdminController extends BaseController{
 	public ResponseEntity<Prof> postStudent(@Valid @RequestBody Student student) throws ErrorCust {
 	
 		try {	
-		student.add(student);
+		student.saveStudent(student);
 		student.getAllStudents().forEach(System.out::println);
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
@@ -146,7 +146,7 @@ public class AdminController extends BaseController{
 	}
 	
 	@DeleteMapping("/prof/list/{id}")
-    public void deleteCustomer(@PathVariable int id) throws ErrorCust {
+    public void deleteProfs(@PathVariable int id) throws ErrorCust {
     try {
         customers.delete(id);
     }catch(ErrorCust nfe){
