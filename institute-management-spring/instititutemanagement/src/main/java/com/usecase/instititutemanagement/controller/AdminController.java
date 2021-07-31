@@ -88,8 +88,8 @@ public class AdminController extends BaseController{
 	public ResponseEntity<Prof> postProf(@Valid @RequestBody Prof prof) throws ErrorCust {
 	
 		try {	
-		prof.saveProf(prof);
-		prof.getAllProfs().forEach(System.out::println);
+		pservice.saveProf(prof);
+		pservice.getAllProfs().forEach(System.out::println);
 		return new ResponseEntity<Prof>(prof, HttpStatus.OK);
 	}
 	 	catch (ErrorCust ec ) {
@@ -101,8 +101,8 @@ public class AdminController extends BaseController{
 	public ResponseEntity<Prof> postStudent(@Valid @RequestBody Student student) throws ErrorCust {
 	
 		try {	
-		student.saveStudent(student);
-		student.getAllStudents().forEach(System.out::println);
+		sservice.saveStudent(student);
+		sservice.getAllStudents().forEach(System.out::println);
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
 	 	catch (ErrorCust ec ) {
@@ -110,13 +110,39 @@ public class AdminController extends BaseController{
 		}
 	}
 
-    @PutMapping("/admin")
-	void update(@Valid @RequestBody Long adminId, String adminName, String adminPhone) {
-		Admin admin = adminRepo.findById(adminId);
-		admin.setAdminName(adminName);
-		admin.setAdminPhone(adminPhone);
-		adminRepo.save(admin);
+    @PutMapping("/prof/list/update")
+	public ResponseEntity<String> putProfs(@Valid @PathVariable Long profId, @RequestBody Prof prof) throws ErrorCust {
+		try {	
+		Prof profs = pservice.findById(profId);
+		profs.setProfName(prof.getProfName());
+		prof.setProfSurname(prof.getProfSurname());
+		profs.setProfPhone(prof.getProfPhone());
+		profs.setProfBranch(prof.getProfBranch());
+		profs.setProfAge(prof.getProfAge());
+		profs.setProfSchoolName(prof.getProfSchoolName());
+		pservice.saveProf(profs);
+		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
+		} catch (ErrorCust ec ) {
+		throw ec;
+		}
 	}
+	
+	@PutMapping("/student/list/update")
+	public ResponseEntity<String> putStuds(@Valid @PathVariable Long studentId, @RequestBody Student student) throws ErrorCust {
+		try {	
+		Student student2 = sservice.findById(studentId);
+		student2.setName(student.getName());
+		student2.setSurname(student.getSurname());
+		student2.setCity(student.getCity());
+		student2.setDistrict(student.getDistrict());
+		student2.setMobilePhone(student.getMobilePhone());
+		sservice.saveStudent(student2);
+		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
+		} catch (ErrorCust ec ) {
+		throw ec;
+		}
+	}
+
 
 	@GetMapping("/admin/list/{id}")
 	public ResponseEntity<Optional<Admin>> fetchAdmin(@PathVariable Long adminId) throws ErrorCust {
@@ -146,26 +172,21 @@ public class AdminController extends BaseController{
 	}
 	
 	@DeleteMapping("/prof/list/{id}")
-    public void deleteProfs(@PathVariable int id) throws ErrorCust {
+    public void deleteProfs(@PathVariable Long profId) throws ErrorCust {
     try {
-        customers.delete(id);
-    }catch(ErrorCust nfe){
-    	throw nfe;
-		//throws new NotFoundException();
+        pservice.deleteProf(profId);
+    }catch(ErrorCust ec){
+    	throw ec;
 	    }
     }
 
-	@DeleteMapping("/admin/{id}")
-	public ResponseEntity<?> deleteAdmin(@PathVariable Long adminId) { 
-		Admin admin = adminRepo.findById(adminId);
-		adminRepo.delete(admin);
-		return ResponseEntity.ok().build();
-	}
-
-	@DeleteMapping("/prof/{id}")
-	public ResponseEntity<?> deleteProf(@PathVariable Long profId) { 
-		Prof prof = profRepo.findById(profId);
-		profRepo.delete(prof);
-		return ResponseEntity.ok().build();
-	}
+	@DeleteMapping("/student/list/{id}")
+    public void deleteStudents(@PathVariable Long studentId) throws ErrorCust {
+    try {
+        sservice.deleteStudent(studentId);
+    }catch(ErrorCust ec){
+    	throw ec;
+	    }
+    }
+	
 }

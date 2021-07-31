@@ -1,18 +1,27 @@
 package com.usecase.instititutemanagement.controller;
 
 import java.util.Collection;
+import java.util.Collections.*;
+import java.util.*;
 
-import org.springframework.http.ResponseEntity;
+import javax.validation.Valid;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.usecase.instititutemanagement.error.*;
 import com.usecase.instititutemanagement.model.*;
@@ -48,13 +57,30 @@ public class ProfController extends BaseController{
 	public ResponseEntity<Prof> postStudent(@Valid @RequestBody Student student) throws ErrorCust {
 	
 		try {	
-		student.saveStudent(student);
-		student.getAllStudents().forEach(System.out::println);
+		sservice.saveStudent(student);
+		sservice.getAllStudents().forEach(System.out::println);
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
 	 	catch (ErrorCust ec ) {
 		throw ec;
 		}
 	}
+
+	@PutMapping("/student/list/update")
+	public ResponseEntity<String> putStuds(@Valid @PathVariable Long studentId, @RequestBody Student student) throws ErrorCust {
+		try {	
+		Student student2 = sservice.findById(studentId);
+		student2.setName(student.getName());
+		student2.setSurname(student.getSurname());
+		student2.setCity(student.getCity());
+		student2.setDistrict(student.getDistrict());
+		student2.setMobilePhone(student.getMobilePhone());
+		sservice.saveStudent(student2);
+		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
+		} catch (ErrorCust ec ) {
+		throw ec;
+		}
+	}
+
 	
 }
