@@ -8,9 +8,9 @@ import MyRegister from './Components/Register/MyRegister';
 function App() {
   return (
     <div className="App">
-     {/* <School/> */}
-    <TestLogin/>
-   
+     <School/>
+    {/* <TestLogin/> */}
+    
     </div>
   );
 }
