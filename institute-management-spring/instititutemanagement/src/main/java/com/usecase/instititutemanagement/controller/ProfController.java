@@ -35,7 +35,7 @@ public class ProfController extends BaseController{
 	@Autowired
 	private StudentService sservice;
 	
-	@GetMapping("/student/all")
+	@GetMapping(value = "/student/all",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Student>> fetchAllStudents() throws ErrorCust {
 		try{	
 			return new ResponseEntity<Collection<Student>>(sservice.getAllStudents(), HttpStatus.OK);
@@ -44,17 +44,17 @@ public class ProfController extends BaseController{
 		}
 	}
 
-	@GetMapping("/student/{id}")
-	public ResponseEntity<Optional<Student>> fetchStudent(@PathVariable Long studentId) throws ErrorCust {
+	@GetMapping(value = "/student/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Optional<Student>> fetchStudent(@PathVariable int id) throws ErrorCust {
 		try{
-			return new ResponseEntity<Optional<Student>>(sservice.findone(studentId), HttpStatus.OK);
+			return new ResponseEntity<Optional<Student>>(sservice.fetchbyid(id), HttpStatus.OK);
 		}catch(ErrorCust ec){
 			throw ec;
 		}
 	}
 
-	@PostMapping("/student/list/add")
-	public ResponseEntity<Prof> postStudent(@Valid @RequestBody Student student) throws ErrorCust {
+	@PostMapping(value = "/student/list/add",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Student> postStudent(@Valid @RequestBody Student student) throws ErrorCust {
 	
 		try {	
 		sservice.saveStudent(student);
@@ -66,14 +66,14 @@ public class ProfController extends BaseController{
 		}
 	}
 
-	@PutMapping("/student/list/update")
-	public ResponseEntity<String> putStuds(@Valid @PathVariable Long studentId, @RequestBody Student student) throws ErrorCust {
+	@PutMapping(value = "/student/list/update",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> putStuds(@Valid @PathVariable int id, @RequestBody Student student) throws ErrorCust {
 		try {	
-		Student student2 = sservice.findById(studentId);
+		Student student2 = sservice.fetchbyid(id);
 		student2.setName(student.getName());
 		student2.setSurname(student.getSurname());
-		student2.setCity(student.getCity());
-		student2.setDistrict(student.getDistrict());
+		student2.setCampus(student.getCampus());
+		student2.setDepartment(student.getDepartment());
 		student2.setMobilePhone(student.getMobilePhone());
 		sservice.saveStudent(student2);
 		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);

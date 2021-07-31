@@ -6,8 +6,8 @@ import com.usecase.instititutemanagement.model.Admin;
 public interface AdminService {
 	
 	public List<Admin> getAllAdmins();
-	public Optional<Admin> findone(Long adminId);
-	public void saveAdmin (final Admin admin);
+	public Optional<Admin> fetchbyid(Integer id);
+	public void saveAdmin (Admin admin);
 	public boolean updateAdmin (Admin admin);
-	public boolean deleteAdmin (Admin admin);
+	public boolean deleteAdmin (Integer id);
 }

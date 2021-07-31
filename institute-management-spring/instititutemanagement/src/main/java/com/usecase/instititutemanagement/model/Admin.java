@@ -12,7 +12,7 @@ public class Admin implements Serializable {
 
 	@Id
 	@Column(name = "adminId", nullable = false)
-	public int adminId;
+	public int id;
 
 
 	@Column(name = "adminName", nullable = false)
@@ -23,14 +23,12 @@ public class Admin implements Serializable {
 	public String adminPhone;
 
    
-
-   
-    public int getAdminId() {
-        return this.adminId;
+    public int getId() {
+        return this.id;
     }
 
-    public void setAdminId(int adminId) {
-        this.adminId = adminId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAdminName() {
@@ -51,9 +49,9 @@ public class Admin implements Serializable {
 
 
 
-    public Admin(int adminId, String adminName, String adminPhone) {
+    public Admin(int id, String adminName, String adminPhone) {
         super();
-        this.adminId = adminId;
+        this.id = id;
         this.adminName = adminName;
         this.adminPhone = adminPhone;
     }
@@ -64,7 +62,7 @@ public class Admin implements Serializable {
     @Override
     public String toString() {
         return "{" +
-            " adminId='" + adminId + "'" +
+            " adminId='" + id + "'" +
             ", adminName='" + adminName + "'" +
             ", adminPhone='" + adminPhone + "'" +
             "}";

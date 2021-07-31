@@ -6,8 +6,8 @@ import com.usecase.instititutemanagement.model.Prof;
 public interface ProfService {
 	
 	public List<Prof> getAllProfs();
-	public Optional<Prof> findone(Long profId);
-	public void saveProf (final Prof prof);
+	public Optional<Prof> fetchbyid(Integer id);
+	public void saveProf (Prof prof);
 	public boolean updateProf (Prof prof);
 	public boolean deleteProf (Prof prof);
 }

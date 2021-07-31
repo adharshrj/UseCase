@@ -56,7 +56,7 @@ public class AdminController extends BaseController{
 		this.adminRepo = adminRepo;
 	}
 
-    @GetMapping("/admin/list/all")
+    @GetMapping(value = "/admin/list/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Admin>> fetchAllAdmins() throws ErrorCust {
 		try{	
 			return new ResponseEntity<Collection<Admin>>(aservice.getAllAdmins(), HttpStatus.OK);
@@ -66,7 +66,7 @@ public class AdminController extends BaseController{
 	}
 		
 	
-    @GetMapping("/student/list/all")
+    @GetMapping(value = "/student/list/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Student>> fetchAllStudents() throws ErrorCust {
 		try{	
 			return new ResponseEntity<Collection<Student>>(sservice.getAllStudents(), HttpStatus.OK);
@@ -75,7 +75,7 @@ public class AdminController extends BaseController{
 		}
 	}
 
-	@GetMapping("/prof/list/all")
+	@GetMapping(value = "/prof/list/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Prof>> fetchAllProfs() throws ErrorCust {
 		try{	
 			return new ResponseEntity<Collection<Prof>>(pservice.getAllProfs(), HttpStatus.OK);
@@ -84,7 +84,7 @@ public class AdminController extends BaseController{
 		}
 	}
 
-	@PostMapping("/prof/list/add")
+	@PostMapping(value = "/prof/list/add",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Prof> postProf(@Valid @RequestBody Prof prof) throws ErrorCust {
 	
 		try {	
@@ -97,8 +97,8 @@ public class AdminController extends BaseController{
 		}
 	}
 
-	@PostMapping("/student/list/add")
-	public ResponseEntity<Prof> postStudent(@Valid @RequestBody Student student) throws ErrorCust {
+	@PostMapping(value = "/student/list/add",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Student> postStudent(@Valid @RequestBody Student student) throws ErrorCust {
 	
 		try {	
 		sservice.saveStudent(student);
@@ -110,16 +110,16 @@ public class AdminController extends BaseController{
 		}
 	}
 
-    @PutMapping("/prof/list/update")
-	public ResponseEntity<String> putProfs(@Valid @PathVariable Long profId, @RequestBody Prof prof) throws ErrorCust {
+    @PutMapping(value = "/prof/list/update",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> putProfs(@Valid @PathVariable int id, @RequestBody Prof prof) throws ErrorCust {
 		try {	
-		Prof profs = pservice.findById(profId);
-		profs.setProfName(prof.getProfName());
-		prof.setProfSurname(prof.getProfSurname());
-		profs.setProfPhone(prof.getProfPhone());
-		profs.setProfBranch(prof.getProfBranch());
-		profs.setProfAge(prof.getProfAge());
-		profs.setProfSchoolName(prof.getProfSchoolName());
+		Prof profs = pservice.fetchbyid(id);
+		profs.setName(prof.getName());
+		prof.setSurname(prof.getSurname());
+		profs.setPhone(prof.getPhone());
+		profs.setBranch(prof.getBranch());
+		profs.setAge(prof.getAge());
+		profs.setSchoolName(prof.getSchoolName());
 		pservice.saveProf(profs);
 		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
 		} catch (ErrorCust ec ) {
@@ -127,14 +127,14 @@ public class AdminController extends BaseController{
 		}
 	}
 	
-	@PutMapping("/student/list/update")
-	public ResponseEntity<String> putStuds(@Valid @PathVariable Long studentId, @RequestBody Student student) throws ErrorCust {
+	@PutMapping(value = "/student/list/update",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> putStuds(@Valid @PathVariable int id, @RequestBody Student student) throws ErrorCust {
 		try {	
-		Student student2 = sservice.findById(studentId);
+		Student student2 = sservice.fetchbyid(id);
 		student2.setName(student.getName());
 		student2.setSurname(student.getSurname());
-		student2.setCity(student.getCity());
-		student2.setDistrict(student.getDistrict());
+		student2.setCampus(student.getCampus());
+		student2.setDepartment(student.getDepartment());
 		student2.setMobilePhone(student.getMobilePhone());
 		sservice.saveStudent(student2);
 		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
@@ -144,46 +144,46 @@ public class AdminController extends BaseController{
 	}
 
 
-	@GetMapping("/admin/list/{id}")
-	public ResponseEntity<Optional<Admin>> fetchAdmin(@PathVariable Long adminId) throws ErrorCust {
+	@GetMapping(value = "/admin/list/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Optional<Admin>> fetchAdmin(@PathVariable int id) throws ErrorCust {
 		try{
-			return new ResponseEntity<Optional<Admin>>(aservice.findone(adminId), HttpStatus.OK);
+			return new ResponseEntity<Optional<Admin>>(aservice.fetchbyid(id), HttpStatus.OK);
 		}catch(ErrorCust ec){
 			throw ec;
 		}
 	}
 
-	@GetMapping("/prof/list/{id}")
-	public ResponseEntity<Optional<Prof>> fetchProf(@PathVariable Long profId) throws ErrorCust {
+	@GetMapping(value = "/prof/list/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Optional<Prof>> fetchProf(@PathVariable int id) throws ErrorCust {
 		try{
-			return new ResponseEntity<Optional<Prof>>(pservice.findone(profId), HttpStatus.OK);
+			return new ResponseEntity<Optional<Prof>>(pservice.fetchbyid(id), HttpStatus.OK);
 		}catch(ErrorCust ec){
 			throw ec;
 		}
 	}
 
-	@GetMapping("/student/list/{id}")
-	public ResponseEntity<Optional<Student>> fetchStudent(@PathVariable Long studentId) throws ErrorCust {
+	@GetMapping(value = "/student/list/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Optional<Student>> fetchStudent(@PathVariable int id) throws ErrorCust {
 		try{
-			return new ResponseEntity<Optional<Student>>(sservice.findone(studentId), HttpStatus.OK);
+			return new ResponseEntity<Optional<Student>>(sservice.fetchbyid(id), HttpStatus.OK);
 		}catch(ErrorCust ec){
 			throw ec;
 		}
 	}
 	
-	@DeleteMapping("/prof/list/{id}")
-    public void deleteProfs(@PathVariable Long profId) throws ErrorCust {
+	@DeleteMapping(value ="/prof/list/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteProfs(@PathVariable int id, @RequestBody Prof prof) throws ErrorCust {
     try {
-        pservice.deleteProf(profId);
+        pservice.deleteProf(id);
     }catch(ErrorCust ec){
     	throw ec;
 	    }
     }
 
-	@DeleteMapping("/student/list/{id}")
-    public void deleteStudents(@PathVariable Long studentId) throws ErrorCust {
+	@DeleteMapping(value = "/student/list/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteStudents(@Valid @PathVariable int id, @RequestBody Student student) throws ErrorCust {
     try {
-        sservice.deleteStudent(studentId);
+        sservice.deleteStudent(id);
     }catch(ErrorCust ec){
     	throw ec;
 	    }

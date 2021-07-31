@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.usecase.instititutemanagement.model.Prof;
 @Repository("profrepo")
-public interface ProfRepo extends JpaRepository<Prof, Long> {
+public interface ProfRepo extends JpaRepository<Prof, Integer> {
 	
 }

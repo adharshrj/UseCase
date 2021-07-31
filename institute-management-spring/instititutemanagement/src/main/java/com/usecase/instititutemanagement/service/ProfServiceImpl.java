@@ -15,7 +15,7 @@ import com.usecase.instititutemanagement.repo.ProfRepo;
 
 
 @Service
-public class ProfServiceImpl implements ProfService{
+public class ProfServiceImpl extends BaseService implements ProfService{
 
 	@Autowired
 	private ProfRepo profRepo;
@@ -41,13 +41,13 @@ public class ProfServiceImpl implements ProfService{
 	}
 
 	@Override
-    public Optional<Prof> findone(Long profId) {
-        return profRepo.findById(profId);
+    public Optional<Prof> fetchbyid(Integer id) {
+        return profRepo.findById(id);
     }
 
 	@Override
 	public void saveProf(Prof prof) {
-		profRepo.save(prof); 
+		profRepo.put(prof.getId(),prof); 
 		
 	}
 
@@ -58,12 +58,12 @@ public class ProfServiceImpl implements ProfService{
 	}
 
 	@Override
-	public boolean deleteProf(Prof prof) {	
+	public boolean deleteProf(Integer id) {	
 		if(profRepo.equals("")) {
 			System.out.println("There are no Professors");
 		}
 		else 
-        profRepo.delete(prof);
+        profRepo.delete(id);
 		return true;
 	}
 

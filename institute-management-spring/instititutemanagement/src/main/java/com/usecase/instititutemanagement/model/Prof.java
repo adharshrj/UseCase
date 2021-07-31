@@ -1,9 +1,28 @@
 package com.usecase.instititutemanagement.model;
 import java.io.Serializable;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Prof implements Serializable {
@@ -13,30 +32,35 @@ public class Prof implements Serializable {
 
 	@Id
 	@Column(name="profId", unique=true, nullable = false)
-	public int profId;
+	public int id;
 	
 	@Column(name="profName")
-	public String profName;
+	public String name;
 	
 	@Column(name="profSurname")
-	public String profSurname;
+	public String surname;
 	
 	@Column(name="profBranch")
-	public String profBranch;
+	public String Branch;
 	
-	@Column(name="profAge")
-	public String profAge;
+    @Transient
+	public String Age;
+
+    
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name="profdob")
+    private Date dob;
 	
 	@Column(name="profPhone")
-	public String profPhone;
+	public String Phone;
 
     @Column(name="profSchoolName")
-	public String profSchoolName;
+	public String SchoolName;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="type",referencedColumnName = "profId")
     private ProfType pType;
-
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JoinTable(name = "tbl_prof_stu",
@@ -46,98 +70,65 @@ public class Prof implements Serializable {
     )
     private List<Subject> subjects;
 
-    public int getProfId() {
-        return this.profId;
+    public int getId() {
+        return this.id;
     }
 
-    public void setProfId(int profId) {
-        this.profId = profId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getProfName() {
-        return this.profName;
+    public String getName() {
+        return this.name;
     }
 
-    public void setProfName(String profName) {
-        this.profName = profName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getProfSurname() {
-        return this.profSurname;
+    public String getSurname() {
+        return this.surname;
     }
 
-    public void setProfSurname(String profSurname) {
-        this.profSurname = profSurname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getProfBranch() {
-        return this.profBranch;
+    public String getBranch() {
+        return this.Branch;
     }
 
-    public void setProfBranch(String profBranch) {
-        this.profBranch = profBranch;
+    public void setBranch(String Branch) {
+        this.Branch = Branch;
+    }
+    public void setAge(String Age) {
+        this.Age = Age;
     }
 
-    public String getProfAge() {
-        return this.profAge;
+    public Date getDob() {
+        return this.dob;
     }
 
-    public void setProfAge(String profAge) {
-        this.profAge = profAge;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
-    public String getProfPhone() {
-        return this.profPhone;
+    public String getPhone() {
+        return this.Phone;
     }
 
-    public void setProfPhone(String profPhone) {
-        this.profPhone = profPhone;
+    public void setPhone(String Phone) {
+        this.Phone = Phone;
     }
 
-    public String getProfSchoolName() {
-        return this.profSchoolName;
+    public String getSchoolName() {
+        return this.SchoolName;
     }
 
-    public void setProfSchoolName(String profSchoolName) {
-        this.profSchoolName = profSchoolName;
+    public void setSchoolName(String SchoolName) {
+        this.SchoolName = SchoolName;
     }
 
-
-
-    public Prof(int profId, String profName, String profSurname, String profBranch, String profAge, String profPhone, String profSchoolName, ProfType pType, List<Subject> subjects) {
-        this.profId = profId;
-        this.profName = profName;
-        this.profSurname = profSurname;
-        this.profBranch = profBranch;
-        this.profAge = profAge;
-        this.profPhone = profPhone;
-        this.profSchoolName = profSchoolName;
-        this.pType = pType;
-        this.subjects = subjects;
-    }
-	
-	
-	public Prof() {
-		
-	}
-
-
-    @Override
-    public String toString() {
-        return "{" +
-            " profId='" + getProfId() + "'" +
-            ", profName='" + getProfName() + "'" +
-            ", profSurname='" + getProfSurname() + "'" +
-            ", profBranch='" + getProfBranch() + "'" +
-            ", profAge='" + getProfAge() + "'" +
-            ", profPhone='" + getProfPhone() + "'" +
-            ", profSchoolName='" + getProfSchoolName() + "'" +
-            ", pType='" + getPType() + "'" +
-            ", subjects='" + getSubjects() + "'" +
-            "}";
-    }
-
-	
     public ProfType getPType() {
         return this.pType;
     }
@@ -154,6 +145,21 @@ public class Prof implements Serializable {
         this.subjects = subjects;
     }
 
+    public Prof(int id, String name, String surname, String Branch, String Age, Date dob, String Phone, String SchoolName, ProfType pType, List<Subject> subjects) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.Branch = Branch;
+        this.Age = Age;
+        this.dob = dob;
+        this.Phone = Phone;
+        this.SchoolName = SchoolName;
+        this.pType = pType;
+        this.subjects = subjects;
+    }
+
+    public Prof(){}
+   
     
     public int getAge() {
         long ageInMillis = new Date().getTime() - getDob().getTime();
@@ -163,6 +169,22 @@ public class Prof implements Serializable {
         return age.getYear();
     }
 	
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", name='" + getName() + "'" +
+            ", surname='" + getSurname() + "'" +
+            ", Branch='" + getBranch() + "'" +
+            ", Age='" + getAge() + "'" +
+            ", dob='" + getDob() + "'" +
+            ", Phone='" + getPhone() + "'" +
+            ", SchoolName='" + getSchoolName() + "'" +
+            ", pType='" + getPType() + "'" +
+            ", subjects='" + getSubjects() + "'" +
+            "}";
+    }
 	
 	
 	

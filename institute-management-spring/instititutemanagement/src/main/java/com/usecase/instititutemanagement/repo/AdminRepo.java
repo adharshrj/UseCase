@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.usecase.instititutemanagement.model.Admin;
 import com.usecase.instititutemanagement.model.Prof;
 @Repository("adminrepo")
-public interface AdminRepo extends JpaRepository<Admin, Long> {
-	public Prof getByName(final String profName);
+public interface AdminRepo extends JpaRepository<Admin, Integer> {
+	public Prof getByName(final String name);
 }

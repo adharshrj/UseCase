@@ -14,7 +14,7 @@ import com.usecase.instititutemanagement.repo.AdminRepo;
 import com.usecase.instititutemanagement.repo.ProfRepo;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends BaseService implements AdminService {
 
 	@Autowired
 	private AdminRepo adminRepo;
@@ -35,13 +35,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-    public Optional<Admin> findone(Long adminId) {
-        return adminRepo.findById(adminId);
+    public Optional<Admin> fetchbyid(Integer id) {
+        return adminRepo.findById(id);
     }
 
 	@Override
 	public void saveAdmin(Admin admin) {
-		adminRepo.save(admin);
+		adminRepo.put(admin.getId(),admin);
 	}
 
 	@Override
@@ -51,12 +51,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean deleteAdmin(Admin admin) {
+	public boolean deleteAdmin(int id) {
 		if(adminRepo.equals("")) {
 			System.out.println("There are no admins");
 		}
 		else 
-			adminRepo.delete(admin);
+			adminRepo.delete(id);
 		return true;
 	}
 }

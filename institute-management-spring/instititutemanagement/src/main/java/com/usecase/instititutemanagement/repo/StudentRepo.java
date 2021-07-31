@@ -7,16 +7,16 @@ import org.springframework.stereotype.Repository;
 
 import com.usecase.instititutemanagement.model.Student;
 @Repository("studentrepo")
-public interface StudentRepo extends JpaRepository<Student, Long> {
-    public List<Student> findByLastname(String lname);
+public interface StudentRepo extends JpaRepository<Student, Integer> {
+    // public List<Student> findByLastname(String lname);
 
-    public List<Student> findByLastnameOrFirstname(String lname,String fname);
+    // public List<Student> findByLastnameOrFirstname(String lname,String fname);
 
-    //jpql
-    @Query("select s from Student s where s.firstname=:fname or s.lastname=:lname")
-    public List<Student> byLNFN(String lname,String fname);
+    // //jpql
+    // @Query("select s from Student s where s.firstname=:fname or s.lastname=:lname")
+    // public List<Student> byLNFN(String lname,String fname);
 
-    @Query(value="select * from tbl_student where lname like '%:filter%'",nativeQuery=true)
-    public List<Object[]> fetchBylName(String filter);
+    // @Query(value="select * from tbl_student where lname like '%:filter%'",nativeQuery=true)
+    // public List<Object[]> fetchBylName(String filter);
 	
 }
