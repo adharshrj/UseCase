@@ -6,12 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@Table(name = "tbl_student")
 public class Student implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id", unique=true, nullable=false)
 	public int id;
 	
@@ -22,26 +24,80 @@ public class Student implements Serializable {
 	public String surname;
 	
 	@Column(name="mobilePhone")
-	public int mobilePhone;
+	public long mobilePhone;
 
-	@Column(name="city")
-	public String city;
+	@Column(name="campus")
+	public String campus;
+
+	@Column(name="department")
+	public String department;
+
+
+	@Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date dob;
+
+    @Transient
+    private int age;
 	
-	@Column(name="district")
-	public String district;
-	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="type",referencedColumnName = "id")
+    private StudentType sType;
+
+	public Date getDob() {
+		return this.dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public int getAge() {
+		return this.age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public StudentType getSType() {
+		return this.sType;
+	}
+
+	public void setSType(StudentType sType) {
+		this.sType = sType;
+	}
+
+	public List<Subject> getSubjects() {
+		return this.subjects;
+	}
+
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
+	}
+
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+    @JoinTable(name = "tbl_sub_stu",
+        joinColumns = {@JoinColumn(name="stu_id",referencedColumnName = "id",nullable = false)},
+        inverseJoinColumns = {@JoinColumn(name="sub_id",referencedColumnName = "subcode",nullable = false)},
+        uniqueConstraints = @UniqueConstraint(columnNames = {"stu_id","sub_id"})
+    )
+    private List<Subject> subjects;
+
+
 	public Student() {
 		
 	}
 
-	public Student(int id, String name, String surname, int mobilePhone, String city, String district) {
+	public Student(int id, String name, String surname, Long mobilePhone, String campus, String department) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.mobilePhone = mobilePhone;
-		this.city = city;
-		this.district = district;
+		this.campus = campus;
+		this.department = department;
 	}
 
 	public int getId() {
@@ -75,22 +131,22 @@ public class Student implements Serializable {
 	public void setMobilePhone(int mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
-
-	public String getCity() {
-		return city;
+	public String getCampus() {
+		return this.campus;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setCampus(String campus) {
+		this.campus = campus;
 	}
 
-	public String getDistrict() {
-		return district;
+	public String getDepartment() {
+		return this.department;
 	}
 
-	public void setDistrict(String district) {
-		this.district = district;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -98,8 +154,8 @@ public class Student implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", surname=" + surname + ", mobilePhone=" + mobilePhone
-				+ ", city=" + city + ", district=" + district + "]";
+		return "Student [id=" + this.id + ", name=" + this.name + ", surname=" + this.surname + ", mobilePhone=" + this.mobilePhone
+				+ ", campus=" + this.campus + ", department=" + this.department + "]";
 	}
 	
 }

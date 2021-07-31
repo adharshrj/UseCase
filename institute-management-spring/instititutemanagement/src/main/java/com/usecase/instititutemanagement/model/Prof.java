@@ -33,6 +33,19 @@ public class Prof implements Serializable {
     @Column(name="profSchoolName")
 	public String profSchoolName;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="type",referencedColumnName = "profId")
+    private ProfType pType;
+
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+    @JoinTable(name = "tbl_prof_stu",
+        joinColumns = {@JoinColumn(name="prof_id",referencedColumnName = "profId",nullable = false)},
+        inverseJoinColumns = {@JoinColumn(name="prof_id",referencedColumnName = "subcode",nullable = false)},
+        uniqueConstraints = @UniqueConstraint(columnNames = {"prof_id","sub_id"})
+    )
+    private List<Subject> subjects;
+
     public int getProfId() {
         return this.profId;
     }
@@ -90,30 +103,65 @@ public class Prof implements Serializable {
     }
 
 
-	public Prof(int profId, String profName, String profSurname, String profBranch,
-			String profAge, String profPhone, String profSchoolName) {
-		super();
-		this.profId = profId;
-		this.profName = profName;
-		this.profSurname = profSurname;
-		this.profBranch = profBranch;
-		this.profAge = profAge;
-		this.profPhone = profPhone;
+
+    public Prof(int profId, String profName, String profSurname, String profBranch, String profAge, String profPhone, String profSchoolName, ProfType pType, List<Subject> subjects) {
+        this.profId = profId;
+        this.profName = profName;
+        this.profSurname = profSurname;
+        this.profBranch = profBranch;
+        this.profAge = profAge;
+        this.profPhone = profPhone;
         this.profSchoolName = profSchoolName;
-	}
+        this.pType = pType;
+        this.subjects = subjects;
+    }
+	
 	
 	public Prof() {
 		
 	}
 
-	@Override
-	public String toString() {
-		return "Professor [profId=" + profId + ", profName=" + profName
-				+ ", profSurname=" + profSurname + ", profBranch=" + profBranch
-				+ ", profAge=" + profAge + ", profPhone=" + profPhone + "" +
-                 ", profSchoolName=" + profSchoolName + "]";
-	}
+
+    @Override
+    public String toString() {
+        return "{" +
+            " profId='" + getProfId() + "'" +
+            ", profName='" + getProfName() + "'" +
+            ", profSurname='" + getProfSurname() + "'" +
+            ", profBranch='" + getProfBranch() + "'" +
+            ", profAge='" + getProfAge() + "'" +
+            ", profPhone='" + getProfPhone() + "'" +
+            ", profSchoolName='" + getProfSchoolName() + "'" +
+            ", pType='" + getPType() + "'" +
+            ", subjects='" + getSubjects() + "'" +
+            "}";
+    }
+
 	
+    public ProfType getPType() {
+        return this.pType;
+    }
+
+    public void setPType(ProfType pType) {
+        this.pType = pType;
+    }
+
+    public List<Subject> getSubjects() {
+        return this.subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    
+    public int getAge() {
+        long ageInMillis = new Date().getTime() - getDob().getTime();
+    
+        Date age = new Date(ageInMillis);
+    
+        return age.getYear();
+    }
 	
 	
 	
