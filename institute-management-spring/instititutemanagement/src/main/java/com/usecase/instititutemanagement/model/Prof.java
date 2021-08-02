@@ -25,6 +25,7 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
+@Table(name="tbl_prof")
 public class Prof implements Serializable {
 
 	

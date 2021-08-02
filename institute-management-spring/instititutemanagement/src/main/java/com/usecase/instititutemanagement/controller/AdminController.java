@@ -1,51 +1,46 @@
 package com.usecase.instititutemanagement.controller;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.Collections.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.usecase.instititutemanagement.error.ErrorCust;
 import com.usecase.instititutemanagement.model.Admin;
 import com.usecase.instititutemanagement.model.Prof;
 import com.usecase.instititutemanagement.model.Student;
-import com.usecase.instititutemanagement.repo.AdminRepo;
-import com.usecase.instititutemanagement.repo.ProfRepo;
-import com.usecase.instititutemanagement.repo.StudentRepo;
-import com.usecase.instititutemanagement.error.*;
-import com.usecase.instititutemanagement.service.*;
+import com.usecase.instititutemanagement.repository.AdminRepo;
+import com.usecase.instititutemanagement.repository.ProfRepo;
+import com.usecase.instititutemanagement.repository.StudentRepo;
+import com.usecase.instititutemanagement.service.AdminService;
+import com.usecase.instititutemanagement.service.ProfService;
+import com.usecase.instititutemanagement.service.StudentService;
 @RestController
 @RequestMapping("api")	
 public class AdminController extends BaseController{
 	Logger logger = LoggerFactory.getLogger(AdminController.class);
-    
+    @Autowired
 	private AdminRepo adminRepo;
-    private StudentRepo studentRepo;
-    private ProfRepo profRepo;
-
+	@Autowired
+	private StudentRepo studentRepo;
+	@Autowired
+	private ProfRepo profRepo;
+	
 	@Autowired
     private AdminService aservice;
 	@Autowired
@@ -53,9 +48,6 @@ public class AdminController extends BaseController{
 	@Autowired
 	private StudentService sservice;
 
-	public AdminController(AdminRepo adminRepo) {
-		this.adminRepo = adminRepo;
-	}
 
     @GetMapping(value = "/admin/list/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Admin>> fetchAllAdmins() throws ErrorCust {

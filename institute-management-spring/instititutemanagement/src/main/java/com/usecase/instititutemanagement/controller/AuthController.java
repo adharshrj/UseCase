@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiResponses;
 import com.usecase.instititutemanagement.model.*;
 import com.usecase.instititutemanagement.payload.request.*;
 import com.usecase.instititutemanagement.payload.response.*;
-import com.usecase.instititutemanagement.repo.*;
+import com.usecase.instititutemanagement.repository.*;
 import com.usecase.instititutemanagement.security.*;
 import com.usecase.instititutemanagement.security.jwt.*;
 import com.usecase.instititutemanagement.security.services.*;

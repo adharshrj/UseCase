@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.usecase.instititutemanagement.model.User;
-import com.usecase.instititutemanagement.repo.UserRepo;
+import com.usecase.instititutemanagement.repository.UserRepo;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

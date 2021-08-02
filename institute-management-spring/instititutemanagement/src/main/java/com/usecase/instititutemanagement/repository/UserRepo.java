@@ -1,4 +1,4 @@
-package com.usecase.instititutemanagement.repo;
+package com.usecase.instititutemanagement.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;

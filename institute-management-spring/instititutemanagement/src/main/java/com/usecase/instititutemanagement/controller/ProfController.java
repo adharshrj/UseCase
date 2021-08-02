@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.usecase.instititutemanagement.error.*;
 import com.usecase.instititutemanagement.model.*;
-import com.usecase.instititutemanagement.repo.*;
+import com.usecase.instititutemanagement.repository.*;
 import com.usecase.instititutemanagement.service.*;
 
 

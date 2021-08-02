@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.usecase.instititutemanagement.model.Student;
-import com.usecase.instititutemanagement.repo.StudentRepo;
+import com.usecase.instititutemanagement.repository.StudentRepo;
 
 
 public class StudentController extends BaseController{
