@@ -41,7 +41,8 @@ import com.usecase.instititutemanagement.service.*;
 @RequestMapping("api")	
 public class AdminController extends BaseController{
 	Logger logger = LoggerFactory.getLogger(AdminController.class);
-    private AdminRepo adminRepo;
+    
+	private AdminRepo adminRepo;
     private StudentRepo studentRepo;
     private ProfRepo profRepo;
 
@@ -113,14 +114,8 @@ public class AdminController extends BaseController{
     @PutMapping(value = "/prof/list/update",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> putProfs(@Valid @PathVariable int id, @RequestBody Prof prof) throws ErrorCust {
 		try {	
-		Prof profs = pservice.fetchbyid(id);
-		profs.setName(prof.getName());
-		prof.setSurname(prof.getSurname());
-		profs.setPhone(prof.getPhone());
-		profs.setBranch(prof.getBranch());
-		profs.setAge(prof.getAge());
-		profs.setSchoolName(prof.getSchoolName());
-		pservice.saveProf(profs);
+		logger.debug(prof.toString());
+		pservice.updateProf(prof);
 		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
 		} catch (ErrorCust ec ) {
 		throw ec;
@@ -130,13 +125,8 @@ public class AdminController extends BaseController{
 	@PutMapping(value = "/student/list/update",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> putStuds(@Valid @PathVariable int id, @RequestBody Student student) throws ErrorCust {
 		try {	
-		Student student2 = sservice.fetchbyid(id);
-		student2.setName(student.getName());
-		student2.setSurname(student.getSurname());
-		student2.setCampus(student.getCampus());
-		student2.setDepartment(student.getDepartment());
-		student2.setMobilePhone(student.getMobilePhone());
-		sservice.saveStudent(student2);
+			logger.debug(student.toString());
+			sservice.updateStudent(student);
 		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
 		} catch (ErrorCust ec ) {
 		throw ec;

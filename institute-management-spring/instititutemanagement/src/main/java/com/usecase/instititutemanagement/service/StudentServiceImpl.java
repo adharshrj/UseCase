@@ -50,13 +50,13 @@ public class StudentServiceImpl extends BaseService implements StudentService{
     }
 
 	@Override
-	public void saveStudent(Student student) {
+	public void updateStudent(Student student) {
 		studentRepo.save(student); 
 		
 	}
 
 	@Override
-	public boolean updateStudent(Student student) {
+	public boolean saveStudent(Student student) {
 		studentRepo.save(student);
 		return true;
 	}
@@ -67,7 +67,7 @@ public class StudentServiceImpl extends BaseService implements StudentService{
 			System.out.println("There are no Students");
 		}
 		else 
-        studentRepo.delete(id);
+        studentRepo.deleteById(id);
 		return true;
 	}
 

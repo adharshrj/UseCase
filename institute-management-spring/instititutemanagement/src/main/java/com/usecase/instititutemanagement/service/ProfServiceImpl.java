@@ -46,24 +46,24 @@ public class ProfServiceImpl extends BaseService implements ProfService{
     }
 
 	@Override
-	public void saveProf(Prof prof) {
-		profRepo.put(prof.getId(),prof); 
+	public boolean saveProf(Prof prof) {
+		profRepo.save(prof);
+		return true;
 		
 	}
 
 	@Override
-	public boolean updateProf(Prof prof) {
+	public void updateProf(Prof prof) {
 		profRepo.save(prof);
-		return true;
 	}
 
 	@Override
-	public boolean deleteProf(Integer id) {	
+	public boolean deleteProf(int id) {	
 		if(profRepo.equals("")) {
 			System.out.println("There are no Professors");
 		}
 		else 
-        profRepo.delete(id);
+        profRepo.deleteById(id);
 		return true;
 	}
 

@@ -40,14 +40,15 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     }
 
 	@Override
-	public void saveAdmin(Admin admin) {
-		adminRepo.put(admin.getId(),admin);
+	public boolean saveAdmin(Admin admin) {
+		adminRepo.save(admin);
+		return true;
 	}
 
 	@Override
-	public boolean updateAdmin(Admin admin) {
+	public void updateAdmin(Admin admin) {
 		adminRepo.save(admin);
-		return true;
+		
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
 			System.out.println("There are no admins");
 		}
 		else 
-			adminRepo.delete(id);
+			adminRepo.deleteById(id);
 		return true;
 	}
 }

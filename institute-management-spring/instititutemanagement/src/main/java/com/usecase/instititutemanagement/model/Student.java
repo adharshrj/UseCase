@@ -59,8 +59,8 @@ public class Student implements Serializable {
     @Transient
     private int age;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="type",referencedColumnName = "id")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="sType")
+    @JoinColumn(name="type",referencedColumnName = "type")
     private StudentType sType;
 
 	public Date getDob() {

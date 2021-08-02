@@ -58,12 +58,12 @@ public class Prof implements Serializable {
     @Column(name="profSchoolName")
 	public String SchoolName;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="type",referencedColumnName = "profId")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy="pType")
+    @JoinColumn(name="type",referencedColumnName = "profType")
     private ProfType pType;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
-    @JoinTable(name = "tbl_prof_stu",
+    @JoinTable(name = "tbl_prof_sub",
         joinColumns = {@JoinColumn(name="prof_id",referencedColumnName = "profId",nullable = false)},
         inverseJoinColumns = {@JoinColumn(name="prof_id",referencedColumnName = "subcode",nullable = false)},
         uniqueConstraints = @UniqueConstraint(columnNames = {"prof_id","sub_id"})

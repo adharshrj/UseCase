@@ -7,8 +7,8 @@ public interface StudentService {
 	
 	public List<Student> getAllStudents();
 	public Optional<Student> fetchbyid(Integer id);
-	public void saveStudent (Student student);
-	public boolean updateStudent (Student student);
+	public boolean saveStudent (Student student);
+	public void updateStudent (Student student);
 	public boolean deleteStudent (Integer id);
 
 	// public List<Student> findByLastname(String lname);

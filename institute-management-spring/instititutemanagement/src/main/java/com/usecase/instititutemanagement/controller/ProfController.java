@@ -6,6 +6,8 @@ import java.util.*;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,6 +34,9 @@ import com.usecase.instititutemanagement.service.*;
 @RestController
 @RequestMapping("api")	
 public class ProfController extends BaseController{
+
+	Logger logger = LoggerFactory.getLogger(ProfController.class);
+
 	@Autowired
 	private StudentService sservice;
 	
@@ -67,15 +72,10 @@ public class ProfController extends BaseController{
 	}
 
 	@PutMapping(value = "/student/list/update",produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> putStuds(@Valid @PathVariable int id, @RequestBody Student student) throws ErrorCust {
+	public ResponseEntity<?> putStuds(@Valid @PathVariable int id, @RequestBody Student student) throws ErrorCust {
 		try {	
-		Student student2 = sservice.fetchbyid(id);
-		student2.setName(student.getName());
-		student2.setSurname(student.getSurname());
-		student2.setCampus(student.getCampus());
-		student2.setDepartment(student.getDepartment());
-		student2.setMobilePhone(student.getMobilePhone());
-		sservice.saveStudent(student2);
+			logger.debug(student.toString());
+			sservice.updateStudent(student);
 		return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
 		} catch (ErrorCust ec ) {
 		throw ec;

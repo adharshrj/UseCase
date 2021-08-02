@@ -7,7 +7,7 @@ public interface AdminService {
 	
 	public List<Admin> getAllAdmins();
 	public Optional<Admin> fetchbyid(Integer id);
-	public void saveAdmin (Admin admin);
-	public boolean updateAdmin (Admin admin);
-	public boolean deleteAdmin (Integer id);
+	public boolean saveAdmin (Admin admin);
+	public void updateAdmin (Admin admin);
+	public boolean deleteAdmin(int id);
 }

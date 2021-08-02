@@ -7,7 +7,7 @@ public interface ProfService {
 	
 	public List<Prof> getAllProfs();
 	public Optional<Prof> fetchbyid(Integer id);
-	public void saveProf (Prof prof);
-	public boolean updateProf (Prof prof);
-	public boolean deleteProf (Prof prof);
+	public void updateProf (Prof prof);
+	public boolean saveProf (Prof prof);
+	public boolean deleteProf (int id);
 }
