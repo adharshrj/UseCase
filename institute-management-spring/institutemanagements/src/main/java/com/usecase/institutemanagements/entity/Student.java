@@ -19,11 +19,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import io.swagger.annotations.ApiModelProperty;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "tbl_student")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Student {
 
     @Id
@@ -31,13 +34,16 @@ public class Student {
     private int id;
 
     @Column(name = "fname", length = 100)
+    @ApiModelProperty(notes = "Firstname of the Student",name="fname",required =true,value="A valid Name")
     private String firstname;
 
     @Column(name = "lname", length = 100)
+    @ApiModelProperty(notes = "Lastname of the Student",name="lname",required =true,value="A valid Name")
     private String lastname;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @ApiModelProperty(notes = "Student DOB",name="dob",required =true,value="A valid student Date of Birth")
     private Date dob;
 
     @Transient
@@ -55,7 +61,7 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="department",referencedColumnName = "id")
     private Department department;
-    
+
     public void setAge(int age) {
         this.age = age;
     }

@@ -1,30 +1,25 @@
 package com.usecase.institutemanagements.entity;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
+import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "tbl_admin ")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Admin{
 
     @Id
@@ -32,13 +27,16 @@ public class Admin{
     private int id;
 
     @Column(name = "fname", length = 100)
+    @ApiModelProperty(notes = "Firstname of Admin",name="fname",required =true,value="A valid Admin FName")
     private String firstname;
 
     @Column(name = "lname", length = 100)
+    @ApiModelProperty(notes = "Lastname of Adnin",name="lname",required =true,value="A valid Admin LName")
     private String lastname;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @ApiModelProperty(notes = "Admin DOB",name="dob",required =true,value="A valid Admin Date of Birth")
     private Date dob;
 
     @Transient

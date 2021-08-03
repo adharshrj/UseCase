@@ -20,11 +20,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
-
+import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "tbl_prof")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Prof{
 
     @Id
@@ -32,13 +35,16 @@ public class Prof{
     private int id;
 
     @Column(name = "fname", length = 100)
+    @ApiModelProperty(notes = "Firstname of Professor",name="fname",required =true,value="A valid Professor FName")
     private String firstname;
 
     @Column(name = "lname", length = 100)
+    @ApiModelProperty(notes = "Lastname of Professor",name="lname",required =true,value="A valid Professor LName")
     private String lastname;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @ApiModelProperty(notes = "Professor DOB",name="dob",required =true,value="A valid professor Date of Birth")
     private Date dob;
 
     @Transient

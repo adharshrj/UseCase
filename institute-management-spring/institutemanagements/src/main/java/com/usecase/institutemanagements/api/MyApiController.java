@@ -45,36 +45,80 @@ public class MyApiController extends BaseController {
     @Autowired
     private AdminManager aService;
 
+    @ApiOperation(value="Get all admin", response = Iterable.class, tags = "getalladmin")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping(value = "/admin",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Admin>> getalladmin(@RequestBody Admin adminReq){
         return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
     }
 
+    @ApiOperation(value="Get admin by id", response = Iterable.class, tags = "getadminbyid")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping(value = "/admin/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Optional<Admin>> getadminbyid(@PathVariable int id){
         return new ResponseEntity<Optional<Admin>>(aService.fetchById(id),HttpStatus.OK);
     }
+
+    @ApiOperation(value="Get all professors", response = Iterable.class, tags = "getallprof")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "RSC-Success|OK"),
+        @ApiResponse(code = 401, message = "RSC-not authorized!"), 
+        @ApiResponse(code = 403, message = "RSC-forbidden!!!"),
+        @ApiResponse(code = 404, message = "RSC-not found!!!") })
 
     @GetMapping(value = "/prof",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Prof>> getallprof(@RequestBody Prof profReq){
         return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
     }
 
+    @ApiOperation(value="Get Professor by id", response = Iterable.class, tags = "getprofbyid")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping(value = "/prof/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Optional<Prof>> getprofbyid(@PathVariable int id){
         return new ResponseEntity<Optional<Prof>>(pService.fetchById(id),HttpStatus.OK);
     }
+
+    @ApiOperation(value="Get student by id", response = Iterable.class, tags = "getstubyid")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "RSC-Success|OK"),
+        @ApiResponse(code = 401, message = "RSC-not authorized!"), 
+        @ApiResponse(code = 403, message = "RSC-forbidden!!!"),
+        @ApiResponse(code = 404, message = "RSC-not found!!!") })
 
     @GetMapping(value = "/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Optional<Student>> getstubyid(@PathVariable int id){
         return new ResponseEntity<Optional<Student>>(stuService.fetchById(id),HttpStatus.OK);
     }
 
+    @ApiOperation(value="Get all Students", response = Iterable.class, tags = "getallstud")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Student>> getallstud(@RequestBody Student stuReq){
         return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
     }
 
+    @ApiOperation(value="Post Admin", response = Iterable.class, tags = "saveAdmin")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @PostMapping(value = "/admin",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Admin>> saveAdmin(@RequestBody Admin adminReq){
         aService.save(adminReq);
@@ -82,12 +126,25 @@ public class MyApiController extends BaseController {
         return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
     }
 
+    @ApiOperation(value="Put Admin", response = Iterable.class, tags = "putAdmin")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @PutMapping(value = "/admin",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Admin>> putAdmin(@RequestBody Admin adminReq){
         aService.save(adminReq);
         System.out.println("====" + adminReq.getId());
         return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
     }
+
+    @ApiOperation(value="Post Prof", response = Iterable.class, tags = "saveProf")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
 
     @PostMapping(value = "/prof",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Prof>> saveProf(@RequestBody Prof profReq){
@@ -96,6 +153,12 @@ public class MyApiController extends BaseController {
         return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
     }
 
+    @ApiOperation(value="Put Professor", response = Iterable.class, tags = "putProf")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @PutMapping(value = "/prof",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Prof>> putProf(@RequestBody Prof profReq){
         pService.save(profReq);
@@ -103,25 +166,49 @@ public class MyApiController extends BaseController {
         return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
     }
 
+    @ApiOperation(value="Post Student", response = Iterable.class, tags = "saveStudent")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @PostMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Student>> putStudent(@RequestBody Student stuReq){
-        stuService.save(stuReq);
-        System.out.println("====" + stuReq.getId());
-        return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Student>> saveStudent(@RequestBody Student stuReq){
         stuService.save(stuReq);
         System.out.println("====" + stuReq.getId());
         return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
     }
 
+    @ApiOperation(value="Put Student", response = Iterable.class, tags = "putStudent")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
+    @PutMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)    
+    public ResponseEntity<List<Student>> putStudent(@RequestBody Student stuReq){
+        stuService.save(stuReq);
+        System.out.println("====" + stuReq.getId());
+        return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
+    }
+
+    @ApiOperation(value="Delete Professor", response = Iterable.class, tags = "deleteProf ")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @DeleteMapping(value = "/prof/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteProf (@PathVariable int id){
     pService.delete(id);
     }
 
+    @ApiOperation(value="Delete Student", response = Iterable.class, tags = "deleteStudent")
+    @ApiResponses(value={ 
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "authorized!"), 
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
     @DeleteMapping(value = "/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteStudent (@PathVariable int id){
     stuService.delete(id);
