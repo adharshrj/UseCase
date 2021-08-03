@@ -2,7 +2,7 @@
 UseCase Repository
 
 # institute-management
- **React**
+ **React**<br>
  *UseCase/institute-management*
 1) Home page Created.
 2) Navigation Bar created.
