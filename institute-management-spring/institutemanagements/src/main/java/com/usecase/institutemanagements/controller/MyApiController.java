@@ -1,4 +1,4 @@
-package com.usecase.institutemanagements.api;
+package com.usecase.institutemanagements.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

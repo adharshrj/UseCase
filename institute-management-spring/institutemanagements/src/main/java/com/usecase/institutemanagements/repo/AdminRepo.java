@@ -4,8 +4,6 @@ package com.usecase.institutemanagements.repo;
 import java.util.List;
 import com.usecase.institutemanagements.entity.Admin;
 
-
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
