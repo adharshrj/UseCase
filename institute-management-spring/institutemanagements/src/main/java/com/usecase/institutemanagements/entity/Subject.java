@@ -1,4 +1,4 @@
-package com.usecase.instititutemanagement.model;
+package com.usecase.institutemanagements.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -61,6 +61,5 @@ public class Subject {
     public void setStudent(List<Student> student) {
         this.student = student;
     }
-
 
 }
