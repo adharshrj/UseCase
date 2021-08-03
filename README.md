@@ -2,7 +2,8 @@
 UseCase Repository
 
 # institute-management
- **React**
+ **React**<br>
+ *UseCase/institute-management*
 1) Home page Created.
 2) Navigation Bar created.
 3) Footer created.
@@ -14,7 +15,8 @@ UseCase Repository
 9) StudentList page for viewing student list and StudentEdit page for editing and adding students added.
 10) Bootstrap has been added to all pages.
 
-**Spring Boot**<br>
+**Spring Boot**<br> 
+*UseCase/institute-management-spring/institutemanagements*
 1) Controllers for Student,Professor and Admin created.
 2) Repository for Student,Professor and Admin created.
 3) Models for for Student,Professor and Admin created.
