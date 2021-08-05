@@ -28,6 +28,7 @@ import java.util.Optional;
 import com.usecase.institutemanagements.entity.Admin;
 import com.usecase.institutemanagements.entity.Prof;
 import com.usecase.institutemanagements.entity.Student;
+import com.usecase.institutemanagements.model.ErrorCust;
 import com.usecase.institutemanagements.service.AdminManager;
 import com.usecase.institutemanagements.service.ProfManager;
 import com.usecase.institutemanagements.service.StudentManager;
@@ -52,8 +53,12 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping(value = "/admin",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Admin>> getalladmin(@RequestBody Admin adminReq){
-        return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Admin>> getalladmin(@RequestBody Admin adminReq)throws ErrorCust{
+        try{ 
+            return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+        throw ec;
+        }
     }
 
     @ApiOperation(value="Get admin by id", response = Iterable.class, tags = "getadminbyid")
@@ -63,8 +68,12 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping(value = "/admin/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<Admin>> getadminbyid(@PathVariable int id){
-        return new ResponseEntity<Optional<Admin>>(aService.fetchById(id),HttpStatus.OK);
+    public ResponseEntity<Optional<Admin>> getadminbyid(@PathVariable int id) throws ErrorCust{
+        try{
+            return new ResponseEntity<Optional<Admin>>(aService.fetchById(id),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Get all professors", response = Iterable.class, tags = "getallprof")
@@ -75,8 +84,12 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 404, message = "RSC-not found!!!") })
 
     @GetMapping(value = "/prof",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Prof>> getallprof(@RequestBody Prof profReq){
-        return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Prof>> getallprof(@RequestBody Prof profReq) throws ErrorCust{
+        try{
+            return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Get Professor by id", response = Iterable.class, tags = "getprofbyid")
@@ -86,8 +99,12 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping(value = "/prof/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<Prof>> getprofbyid(@PathVariable int id){
-        return new ResponseEntity<Optional<Prof>>(pService.fetchById(id),HttpStatus.OK);
+    public ResponseEntity<Optional<Prof>> getprofbyid(@PathVariable int id) throws ErrorCust{
+        try{
+            return new ResponseEntity<Optional<Prof>>(pService.fetchById(id),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Get student by id", response = Iterable.class, tags = "getstubyid")
@@ -98,8 +115,12 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 404, message = "RSC-not found!!!") })
 
     @GetMapping(value = "/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<Student>> getstubyid(@PathVariable int id){
-        return new ResponseEntity<Optional<Student>>(stuService.fetchById(id),HttpStatus.OK);
+    public ResponseEntity<Optional<Student>> getstubyid(@PathVariable int id) throws ErrorCust{
+        try{
+            return new ResponseEntity<Optional<Student>>(stuService.fetchById(id),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Get all Students", response = Iterable.class, tags = "getallstud")
@@ -109,8 +130,12 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Student>> getallstud(@RequestBody Student stuReq){
-        return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Student>> getallstud(@RequestBody Student stuReq) throws ErrorCust{
+        try{
+            return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Post Admin", response = Iterable.class, tags = "saveAdmin")
@@ -120,10 +145,14 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @PostMapping(value = "/admin",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Admin>> saveAdmin(@RequestBody Admin adminReq){
-        aService.save(adminReq);
-        System.out.println("====" + adminReq.getId());
-        return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Admin>> saveAdmin(@RequestBody Admin adminReq) throws ErrorCust{
+        try{
+            aService.save(adminReq);
+            System.out.println("====" + adminReq.getId());
+            return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Put Admin", response = Iterable.class, tags = "putAdmin")
@@ -133,10 +162,14 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @PutMapping(value = "/admin",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Admin>> putAdmin(@RequestBody Admin adminReq){
-        aService.save(adminReq);
-        System.out.println("====" + adminReq.getId());
-        return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Admin>> putAdmin(@RequestBody Admin adminReq)throws ErrorCust{
+        try{    
+            aService.save(adminReq);
+            System.out.println("====" + adminReq.getId());
+            return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Post Prof", response = Iterable.class, tags = "saveProf")
@@ -147,10 +180,14 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 404, message = "not found!!!") })
 
     @PostMapping(value = "/prof",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Prof>> saveProf(@RequestBody Prof profReq){
-        pService.save(profReq);
-        System.out.println("====" + profReq.getId());
-        return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Prof>> saveProf(@RequestBody Prof profReq)throws ErrorCust{
+        try{
+            pService.save(profReq);
+            System.out.println("====" + profReq.getId());
+            return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Put Professor", response = Iterable.class, tags = "putProf")
@@ -160,10 +197,14 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @PutMapping(value = "/prof",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Prof>> putProf(@RequestBody Prof profReq){
-        pService.save(profReq);
-        System.out.println("====" + profReq.getId());
-        return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Prof>> putProf(@RequestBody Prof profReq) throws ErrorCust{
+        try{
+            pService.save(profReq);
+            System.out.println("====" + profReq.getId());
+            return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Post Student", response = Iterable.class, tags = "saveStudent")
@@ -173,10 +214,14 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @PostMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Student>> saveStudent(@RequestBody Student stuReq){
-        stuService.save(stuReq);
-        System.out.println("====" + stuReq.getId());
-        return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Student>> saveStudent(@RequestBody Student stuReq) throws ErrorCust{
+        try{
+            stuService.save(stuReq);
+            System.out.println("====" + stuReq.getId());
+            return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Put Student", response = Iterable.class, tags = "putStudent")
@@ -186,10 +231,14 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @PutMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)    
-    public ResponseEntity<List<Student>> putStudent(@RequestBody Student stuReq){
-        stuService.save(stuReq);
-        System.out.println("====" + stuReq.getId());
-        return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
+    public ResponseEntity<List<Student>> putStudent(@RequestBody Student stuReq)throws ErrorCust{
+        try{ 
+            stuService.save(stuReq);
+            System.out.println("====" + stuReq.getId());
+            return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Delete Professor", response = Iterable.class, tags = "deleteProf ")
@@ -199,8 +248,12 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @DeleteMapping(value = "/prof/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteProf (@PathVariable int id){
-    pService.delete(id);
+    public void deleteProf (@PathVariable int id) throws ErrorCust{
+        try{
+            pService.delete(id);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
     @ApiOperation(value="Delete Student", response = Iterable.class, tags = "deleteStudent")
@@ -210,8 +263,12 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
     @DeleteMapping(value = "/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteStudent (@PathVariable int id){
-    stuService.delete(id);
+    public void deleteStudent (@PathVariable int id) throws ErrorCust{
+        try{
+            stuService.delete(id);
+        }catch(ErrorCust ec){
+            throw ec;
+        }
     }
 
 }
