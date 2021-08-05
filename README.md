@@ -22,8 +22,9 @@ UseCase Repository
 3) API Controller has been created.
 4) Service for for Student,Professor and Admin created.
 5) VO for Student Request and Response created.
-6) Exception handling added with Global Handler and Custom Exception.
-7) Connected to MySQL, Database and Tables Created.
-8) Spring Security added by creating Models for User, Role and ARole(ENUM), Repositories for Role and User and Controllers for Authentication and Testing.
-9) Swagger has been added.
-10) Integerated with React frontend.
+6) Fee Payment model and Ser
+7) Exception handling added with Global Handler and Custom Exception.
+8) Connected to MySQL, Database and Tables Created.
+9) Spring Security added by creating Models for User, Role and ARole(ENUM), Repositories for Role and User and Controllers for Authentication and Testing.
+10) Swagger has been added.
+11) Integerated with React frontend.
