@@ -1,6 +1,5 @@
 package com.usecase.institutemanagements.vo;
 
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
 
 public class CreateStudentResponse extends BaseVo {
     private int studentId;

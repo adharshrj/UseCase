@@ -1,4 +1,6 @@
-
+.modal{
+    background-blend-mode:overlay;
+}
 #nav-bar{
     background-color: black;
 

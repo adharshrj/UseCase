@@ -4,8 +4,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -17,19 +15,19 @@ public class Subject {
     @Id
     private String subcode;
 
-    private String subject;
+    private String subjects;
 
     private String semester;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "subjects")
     private List<Student> student;
 
-    public String getSubject() {
-        return subject;
+    public String getSubjects() {
+        return subjects;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setSubjects(String subjects) {
+        this.subjects = subjects;
     }
 
     public String getSemester() {
@@ -47,7 +45,7 @@ public class Subject {
     @Override
     public String toString() {
         return "Subject [semester=" + semester + ", student=" + student + ", subcode=" + subcode + ", subject="
-                + subject + "]";
+                + subjects + "]";
     }
 
     public void setSubcode(String subCode) {

@@ -1,17 +1,13 @@
 .MyAdminLogin{
   align-items: center;
-  min-width: 50%
+  min-width: 200%
 }
 
 
 .form-control{
-  width: 50% !important;
+  width: 200% !important;
 }
   
-.forma{
-width: 50% !important;
-}
-
 .btn-custom{
   background-color: black;
   color: white;

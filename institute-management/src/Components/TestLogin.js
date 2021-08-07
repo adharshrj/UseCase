@@ -8,8 +8,9 @@ import {login2,login,
   register,
   getCurrentUser} from "./Services/auth.service";
 import MyStudentDashboard from "./Student/Student Dashboard/MyStudentDashboard";
-import {BrowserRouter as Router, Route, Switch, useHistory,withRouter} from "react-router-dom";
-import School from "./School";
+import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
+import MyHome from "./MyHome";
+
 const required = (value) => {
   if (!value) {
     return (
@@ -51,10 +52,8 @@ const TestLogin = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       login(username, password).then(
         () => {
-          history.push("/student");
+          history.push("/studentdash");
           window.location.reload();
-          //console.log("=================");
-          //console.log(res);
         }, (error) => {
           const resMessage =
             (error.response &&
@@ -123,8 +122,8 @@ const TestLogin = (props) => {
       </div>
     </div>
     <Switch>
-              <Route exact path="/" component={School} />
-              <Route path="/student" component={MyStudentDashboard} />
+              <Route exact path="/" component={MyHome} />
+              <Route path="/studentdash" component={MyStudentDashboard} />
             </Switch>
     </Router>
   
