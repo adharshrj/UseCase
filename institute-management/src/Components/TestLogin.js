@@ -2,11 +2,7 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-//import AuthService from "./Services/auth.service";
-import {login2,login,
-  logout,
-  register,
-  getCurrentUser} from "./Services/auth.service";
+import {login} from "./Services/auth.service";
 import MyStudentDashboard from "./Student/Student Dashboard/MyStudentDashboard";
 import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
 import MyHome from "./MyHome";

@@ -5,6 +5,7 @@ import Form from "react-validation/build/form";
 import "./MyProfLogin.css";
 import {useHistory} from "react-router-dom"
 import {login} from "../Services/auth.service";
+import "./MyProfLogin.css"
 const required = (value) => {
     if (!value) {
       return (

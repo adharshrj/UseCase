@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import {BrowserRouter as Router, Route, Switch,Redirect} from "react-router-dom"
+import {BrowserRouter as Router, useHistory} from "react-router-dom"
 import {ProSidebar,Menu,MenuItem,SidebarHeader,SidebarFooter,SidebarContent} from "react-pro-sidebar";
 import { FaCalendar, FaCalendarAlt, FaElementor} from "react-icons/fa";
-import {Button} from 'react-bootstrap';
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { BiCog } from "react-icons/bi";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./ProfSidebar.css"
-import { Link } from 'react-router-dom';
-import StudentEdit from "../StudentEdit";
-import StudentList from "../StudentList";
-import MyProfDashboard from "../MyProfDashboard";
+
+
 
 export default function ProfSidebar() {
     const [menuCollapse, setMenuCollapse] = useState(false)
@@ -18,6 +15,21 @@ export default function ProfSidebar() {
         menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
 
+    var history = useHistory();
+    const handleAtt = () =>{
+        history.push("/database/student");
+              window.location.reload();
+    }
+
+    const handlehome = () =>{
+        history.push("/profdash");
+              window.location.reload();
+    }
+
+    const handlelogout = () =>{
+        history.push("/home");
+        window.location.reload();
+    }
     return (
         <Router>
         <div id="header">
@@ -34,15 +46,14 @@ export default function ProfSidebar() {
                 <SidebarContent>
                     <Menu iconShape="square">
          
-                        <MenuItem button icon={<FiHome />}>
+                        <MenuItem button icon={<FiHome />} onClick = {handlehome}>
                             Home
                         </MenuItem>
                 
               
-                        <MenuItem icon={<FaCalendarAlt />}>
-                            Time Table</MenuItem>
+                        <MenuItem icon={<FaCalendarAlt />}>Time Table</MenuItem>
                  
-                        <MenuItem icon={<FaCalendar />}>Attendance</MenuItem>
+                        <MenuItem icon={<FaCalendar />} onClick={handleAtt}>Attendance</MenuItem>
                    
                         <MenuItem icon={<FaElementor />}>Remarks</MenuItem>
                    
@@ -52,7 +63,7 @@ export default function ProfSidebar() {
                 </SidebarContent>
                 <SidebarFooter>
                     <Menu iconShape="square">
-                        <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+                        <MenuItem icon={<FiLogOut />} onClick={handlelogout}>Logout</MenuItem>
                     </Menu>
                 </SidebarFooter>
             </ProSidebar>

@@ -1,4 +1,8 @@
-
+.btn {
+  background-color: transparent;
+  font-weight: bold;
+ align-content: left;
+}
 #header {
     position: absolute;
     width: 220px;
@@ -19,8 +23,8 @@
     cursor: pointer;
   }
   #header .pro-sidebar {
-    width: 100%;
-    min-width: 100%;
+    width: 150%;
+    min-width: 150%;
   }
   #header .pro-sidebar.collapsed {
     width: 90px;

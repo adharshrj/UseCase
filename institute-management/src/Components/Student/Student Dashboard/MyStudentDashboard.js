@@ -3,7 +3,7 @@
  export default function MyStudentDashboard() {
      return (
          <div>
-            <StudentSidebar/>
+            <StudentSidebar/> 
          </div>
      )
  }

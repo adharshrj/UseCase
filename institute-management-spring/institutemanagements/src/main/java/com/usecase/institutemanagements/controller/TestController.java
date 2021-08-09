@@ -16,15 +16,15 @@ public class TestController {
 	}
 	
 	@GetMapping("/student")
-	@PreAuthorize("hasRole('STUDENT') or hasRole('PROF') or hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('STUDENT') or hasRole('PROF') or hasRole('ADMIN')")
 	public String studentAccess() {
 		return "Student Dashboard.";
 	}
 
 	@GetMapping("/prof")
-	@PreAuthorize("hasRole('PROF')")
+	// @PreAuthorize("hasRole('PROF')")
 	public String profAccess() {
-		return "Professpr Dashboard.";
+		return "Professor Dashboard.";
 	}
 
 	@GetMapping("/admin")

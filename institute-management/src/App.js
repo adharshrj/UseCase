@@ -7,12 +7,13 @@ import MyProfLogin from './Components/Prof/MyProfLogin';
 import MyAdminDashboard from './Components/Admin/Admin Dashboard/MyAdminDashboard';
 import MyProfDashboard from './Components/Prof/Prof Dashboard/MyProfDashboard';
 import MyStudentDashboard from './Components/Student/Student Dashboard/MyStudentDashboard';
-import TestLogin from './Components/TestLogin';
 import MyRegister from './Components/Register/MyRegister';
-import StudentList from './Components/Prof/Prof Dashboard/StudentList';
-import {BrowserRouter as Router, Route, Switch,Redirect} from "react-router-dom"
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import EventBus from "./Common/EventBus";
-import {getCurrentUser,login,logout} from "./Components/Services/auth.service"
+import ManageStudent from './Components/Prof/Prof Dashboard/StudentControl';
+import {getCurrentUser,logout} from "./Components/Services/auth.service";
+import AdminManageStudent from "./Components/Admin/AdminStudentControl"
+import AdminManageProf from './Components/Admin/AdminProfControl';
 const App = () => {
   const [showProfBoard, setShowProfBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -49,17 +50,20 @@ const App = () => {
   return (
     <Router>
     <div className="App">
-   
     
-
     <Switch>
                 <Route exact path='/' component={MyHome} />
+                <Route path='/home' component={MyHome} />
                 <Route path='/admin' component={MyAdminLogin} />
                 <Route path='/prof' component={MyProfLogin} />
                 <Route path='/student' component={MyStudentLogin} />
                 <Route protected path="/studentdash" component={MyStudentDashboard} />
                 <Route protected path="/profdash" component={MyProfDashboard} />
+                <Route protected path="/database/student" component={ManageStudent} />
                 <Route protected path="/admindash" component={MyAdminDashboard}/>
+                <Route protected path="/register" component={MyRegister}/>
+                <Route protected path="/admindatabase/student" component={AdminManageStudent} />
+                <Route protected path="/database/prof" component={AdminManageProf} />
     </Switch>
     </div>
     </Router>

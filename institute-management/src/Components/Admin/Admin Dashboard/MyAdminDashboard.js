@@ -3,7 +3,8 @@ import AdminSidebar from './Sidebar/AdminSidebar'
 export default function MyAdminDashboard() {
     return (
         <div>
-            <AdminSidebar/>
+       
+            <AdminSidebar/> <h1>WELCOME ADMINISTRATOR</h1>
         </div>
     )
 }

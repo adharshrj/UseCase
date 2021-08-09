@@ -61,7 +61,7 @@ export default function MyFooter() {
     </div> */}
     <div className='Copyright'>
       Copyright &copy; {new Date().getFullYear()} {' '}
-        <a className='Adharsh' href="http://adharshrj.github.io">
+        <a className='Adharsh' href="https://adharshrj.github.io">
           Adharsh RJ.  
         </a>
         <a> All Rights Reserved.</a>

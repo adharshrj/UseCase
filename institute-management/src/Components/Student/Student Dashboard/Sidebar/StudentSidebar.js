@@ -6,12 +6,26 @@ import { RiBankCardLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./StudentSidebar.css"
-
+import { useHistory } from "react-router-dom";
 export default function StudentSidebar() {
     const [menuCollapse, setMenuCollapse] = useState(false)
     const menuIconClick = () => {
         menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
+
+    var history = useHistory();
+
+    const handlelogout = () =>{
+        history.push("/home");
+        window.location.reload();
+    }
+
+    const handlehome = () =>{
+        history.push("/studentdash");
+        window.location.reload();
+    }
+
+
     return (
         <div id="header">
 
@@ -27,17 +41,17 @@ export default function StudentSidebar() {
                 <SidebarContent>
                     <Menu iconShape="square">
                         <MenuItem active={true} icon={<FiHome />}>
-                            Home
+                           <button className="btn" onClick={handlehome}>Home</button>
                         </MenuItem>
                         <MenuItem icon={<FiCalendar />}>Time Table</MenuItem>
                         <MenuItem icon={<FaCalendarCheck />}>Attendance</MenuItem>
-                        <MenuItem icon={<RiBankCardLine />}>Fee Payment</MenuItem>
+                        <MenuItem icon={<RiBankCardLine />}><button className="btn" onClick={history.push("/student/payment")}>Fee Payment</button></MenuItem>
                         <MenuItem icon={<BiCog />}>Settings</MenuItem>
                     </Menu>
                 </SidebarContent>
                 <SidebarFooter>
                     <Menu iconShape="square">
-                        <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+                        <MenuItem icon={<FiLogOut />}><button className="btn" onClick={handlelogout}>Logout</button></MenuItem>
                     </Menu>
                 </SidebarFooter>
             </ProSidebar>

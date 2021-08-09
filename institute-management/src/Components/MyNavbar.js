@@ -3,8 +3,6 @@ import MyAdminLogin from './Admin/MyAdminLogin';
 import MyProfLogin from './Prof/MyProfLogin';
 import MyStudentLogin from './Student/MyStudentLogin';
 import {Navbar, Nav, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
-import MyHome from './MyHome';
 import './MyNavbar.css'
 import {Modal} from 'react-bootstrap'
 export default function MyNavbar() {

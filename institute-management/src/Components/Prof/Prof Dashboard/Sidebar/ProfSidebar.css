@@ -1,4 +1,6 @@
-
+.btn{
+  background-color: transparent;
+}
 #header {
   position: absolute;
   width: 220px;

@@ -5,7 +5,6 @@ import React, { useState, useRef  } from "react";
 import "./MyStudentLogin.css";
 import {useHistory} from "react-router-dom"
 import {login} from "../Services/auth.service";
-import {Modal , Button} from 'react-bootstrap'
 const required = (value) => {
     if (!value) {
       return (

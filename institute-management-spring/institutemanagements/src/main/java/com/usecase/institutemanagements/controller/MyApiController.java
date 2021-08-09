@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,7 @@ import io.swagger.annotations.ApiResponses;
 
 import java.util.List;
 import java.util.Optional;
+
 
 import com.usecase.institutemanagements.entity.Admin;
 import com.usecase.institutemanagements.entity.Prof;
@@ -33,6 +35,7 @@ import com.usecase.institutemanagements.service.StudentManager;
 
 @Api(value="MyAPIController",description = "API Service that manages the Institution")
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3000)
 @RequestMapping("api")
 public class MyApiController extends BaseController {
     Logger logger = LoggerFactory.getLogger(MyApiController.class);
@@ -50,7 +53,7 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 401, message = "authorized!"), 
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
-    @GetMapping(value = "/admin",produces = MediaType.APPLICATION_JSON_VALUE)    
+    @GetMapping(value = "/admin/all",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Admin>> getalladmin(@RequestBody Admin adminReq)throws ErrorCust{
         try{ 
             return new ResponseEntity<List<Admin>>(aService.fetchAll(),HttpStatus.OK);
@@ -81,7 +84,7 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 403, message = "RSC-forbidden!!!"),
         @ApiResponse(code = 404, message = "RSC-not found!!!") })
 
-    @GetMapping(value = "/prof",produces = MediaType.APPLICATION_JSON_VALUE)    
+    @GetMapping(value = "/prof/all",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Prof>> getallprof(@RequestBody Prof profReq) throws ErrorCust{
         try{
             return new ResponseEntity<List<Prof>>(pService.fetchAll(),HttpStatus.OK);
@@ -127,7 +130,7 @@ public class MyApiController extends BaseController {
         @ApiResponse(code = 401, message = "authorized!"), 
         @ApiResponse(code = 403, message = "forbidden!!!"),
         @ApiResponse(code = 404, message = "not found!!!") })
-    @GetMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)    
+    @GetMapping(value = "/student/all",produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<List<Student>> getallstud(@RequestBody Student stuReq) throws ErrorCust{
         try{
             return new ResponseEntity<List<Student>>(stuService.fetchAll(),HttpStatus.OK);

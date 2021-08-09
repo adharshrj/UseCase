@@ -2,16 +2,18 @@
     align-items: center;
     min-width: 50%
   }
-  
+
+.form-group{
+  align-items: center !important;
+}
   
   
   .form-control {
-    width: 50% !important;
+  width: 100% !important;
+  size: 500px;
   }
   
-  .formb{
-    width: 50% !important;
-  }
+
   
   .btn-custom{
     background-color: black;
