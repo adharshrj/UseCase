@@ -31,7 +31,7 @@ public class Admin{
     private String firstname;
 
     @Column(name = "lname", length = 100)
-    @ApiModelProperty(notes = "Lastname of Admin",name="lname",required =true,value="A valid Admin LName")
+    @ApiModelProperty(notes = "Lastname of Adnin",name="lname",required =true,value="A valid Admin LName")
     private String lastname;
 
     @Temporal(TemporalType.DATE)

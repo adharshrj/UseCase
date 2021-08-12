@@ -54,14 +54,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable()
+		http.cors().and()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll().and()
-			.authorizeRequests().antMatchers("/api/student/**").permitAll().and()
-			.authorizeRequests().antMatchers("/api/prof/**").permitAll().and()
-			.authorizeRequests().antMatchers("/api/payment/**").permitAll().and()
-			.authorizeRequests().antMatchers("/api/test/**").permitAll()
+			.authorizeRequests().antMatchers("/api/test/**").permitAll().and()
+			.authorizeRequests().antMatchers("/api/**").permitAll().and()
+			.authorizeRequests().antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/springfox-swagger-ui/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -132,9 +133,7 @@ public class Student {
 
  
 
-    public StudentType getsType() {
-        return sType;
-    }
+  
 
     @Override
     public String toString() {
@@ -142,10 +141,7 @@ public class Student {
                 + lastname + ",Department=" +department +", sType=" + sType + ", subjects=" + subjects + ", ts=" + ts + "]";
     }
 
-    public void setsType(StudentType sType) {
-        this.sType = sType;
-    }
-
+  
     public List<Subject> getSubjects() {
         return subjects;
     }

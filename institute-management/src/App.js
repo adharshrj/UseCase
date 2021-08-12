@@ -14,6 +14,7 @@ import ManageStudent from './Components/Prof/Prof Dashboard/StudentControl';
 import {getCurrentUser,logout} from "./Components/Services/auth.service";
 import AdminManageStudent from "./Components/Admin/AdminStudentControl"
 import AdminManageProf from './Components/Admin/AdminProfControl';
+import PayDash from './Components/Student/Student Payment/PayDash';
 const App = () => {
   const [showProfBoard, setShowProfBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -64,6 +65,7 @@ const App = () => {
                 <Route protected path="/register" component={MyRegister}/>
                 <Route protected path="/admindatabase/student" component={AdminManageStudent} />
                 <Route protected path="/database/prof" component={AdminManageProf} />
+                <Route protected path="/payment" component={PayDash}/>
     </Switch>
     </div>
     </Router>

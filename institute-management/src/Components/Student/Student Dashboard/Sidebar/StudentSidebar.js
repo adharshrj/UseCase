@@ -45,7 +45,7 @@ export default function StudentSidebar() {
                         </MenuItem>
                         <MenuItem icon={<FiCalendar />}>Time Table</MenuItem>
                         <MenuItem icon={<FaCalendarCheck />}>Attendance</MenuItem>
-                        <MenuItem icon={<RiBankCardLine />}><button className="btn" onClick={history.push("/student/payment")}>Fee Payment</button></MenuItem>
+                        <MenuItem icon={<RiBankCardLine />}><button className="btn" onClick={history.push("/payment")}>Fee Payment</button></MenuItem>
                         <MenuItem icon={<BiCog />}>Settings</MenuItem>
                     </Menu>
                 </SidebarContent>

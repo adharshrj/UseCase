@@ -41,5 +41,9 @@ public class ProfType {
 
     public void setId(int id) {
         this.id = id;
-    }    
+    }
+
+    
+
+
 }

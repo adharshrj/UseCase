@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import com.usecase.institutemanagements.model.*;
+import com.usecase.institutemanagements.model.ErrorCust;
+import com.usecase.institutemanagements.model.ErrorModel;
 
 
 @ControllerAdvice
@@ -16,7 +17,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
     	ErrorModel ec1 = new ErrorModel();
         ec1.setErrorCode(ec.getErrorCode());
         ec1.setErrorMessage(ec.getErrorMsg());
-        System.err.println("Errors Occured" + ec.toString());
         return new ResponseEntity<ErrorModel>(ec1, HttpStatus.NOT_FOUND);
     }
 

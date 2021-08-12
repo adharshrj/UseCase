@@ -1,6 +1,5 @@
 package com.usecase.institutemanagements.vo;
 
-
 public class CreateStudentResponse extends BaseVo {
     private int studentId;
 
