@@ -28,7 +28,7 @@ import com.usecase.institutemanagements.security.*;
 import com.usecase.institutemanagements.security.jwt.*;
 import com.usecase.institutemanagements.security.services.*;
 
-@CrossOrigin(origins = "https://localhost/3000", maxAge = 3000)
+@CrossOrigin(origins = "*", maxAge = 3000)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
